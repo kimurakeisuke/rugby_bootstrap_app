@@ -8,9 +8,9 @@
     </tr>
   </thead>
   <tbody>
-    <% @posts.each.with_index(1) do |post, position| %>
+    <% @posts.each do |post| %>
     <tr>
-      <th scope="row"><%= position %></th>
+      <th scope="row"><%= post.position %></th>
       <td><%= post.role %></td>
       <td>
         <%= link_to "詳細", post %>
