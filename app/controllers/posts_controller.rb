@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: %i[show edit update destroy]
 
   def index
-    @posts = Post.order(id: :asc)
+    @posts = Post.order(position: :asc)
   end
 
   def show
@@ -10,10 +10,10 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+    @selectable_positions = (1..15).to_a - Post.pluck(:position)
   end
 
   def create
-    # ***** 以下を修正 *****
     @post = Post.new(post_params)
     if @post.save
       redirect_to @post, notice: "投稿しました"
@@ -21,21 +21,19 @@ class PostsController < ApplicationController
       flash.now[:alert] = "投稿に失敗しました"
       render :new
     end
-    # ***** 以上を修正 *****
   end
 
   def edit
+    @selectable_positions = (1..15).to_a - (Post.pluck(:position) - [@post.position])
   end
 
   def update
-    # ***** 以下を修正 *****
     if @post.update(post_params)
       redirect_to @post, notice: "更新しました"
     else
       flash.now[:alert] = "更新に失敗しました"
       render :edit
     end
-    # ***** 以上を修正 *****
   end
 
   def destroy
