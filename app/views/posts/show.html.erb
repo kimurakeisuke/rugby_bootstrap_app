@@ -2,3 +2,13 @@
 <p>ポジション <%= @post.position %></p>
 <p>役割 <%= @post.role %></p>
 <p><%= link_to "投稿一覧", posts_path %></p>
+
+<h1 class="text-center">詳細表示</h1>
+<section class="card border-dark mt-5">
+  <div class="card-header">
+    <h4><%= @post.position %></h4>
+  </div>
+  <div class="card-body">
+    <p class="card-text"><%= simple_format(h @post.role) %></p>
+  </div>
+</section>
